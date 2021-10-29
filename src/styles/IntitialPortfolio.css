@@ -1,0 +1,13 @@
+.tablewithhead{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.tablewithhead h2{
+    margin-left: 20px;
+}
+.down-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
