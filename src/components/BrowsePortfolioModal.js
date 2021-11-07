@@ -43,31 +43,44 @@ const BrowsePortfolioModal = ({
         console.log(addedPortfolios,addedPortfoliosIds,'--------------------------')
     }
 
-    const addPortfolioClickHandler = (portfolio) => {
+    const addPortfolioHandler = (portfolio) => {
         console.log('add portfolio click handler');
+        const filteredPortfolios = addedPortfolios.filter((prevPortfolio) => prevPortfolio.name !== portfolio.name);
+        const newPortfolios = [
+            ...filteredPortfolios,
+            portfolio
+        ];
+        setAddedPortfolios(newPortfolios);
+        setAddedPortfoliosIds([...addedPortfoliosIds,portfolio.name]);
 
-        let alreadyExists = false;
-
-        for (const addedPortfolio of addedPortfolios) {
-            if (addedPortfolio.id === portfolio.id) {
-                alreadyExists = true;
-            }
-        }
-
-        if (!alreadyExists) {
-            setAddedPortfolios([...addedPortfolios, portfolio]);
-            setAddedPortfoliosIds([...addedPortfoliosIds, portfolio.id]);
-        } else {
-            console.log('Already Added ---------- ')
-        }
+        // let alreadyExists = false;
+        //
+        // for (const addedPortfolio of addedPortfolios) {
+        //     if (addedPortfolio.id === portfolio.id) {
+        //         alreadyExists = true;
+        //     }
+        // }
+        //
+        // if (!alreadyExists) {
+        //     setAddedPortfolios([...addedPortfolios, portfolio]);
+        //     setAddedPortfoliosIds([...addedPortfoliosIds, portfolio.id]);
+        // } else {
+        //     console.log('Already Added ---------- ')
+        // }
     }
 
-    const removePortfolioClickHandler = (portfolio) => {
+    const removePortfolioClickHandler = (name) => {
         console.log('remove portfolio click handler');
-        const newPortfolios = addedPortfolios.filter((p) => p.id !== portfolio.id);
-        const newPortfolioIds = addedPortfoliosIds.filter((id) => id !== portfolio.id);
+
+        const newPortfolios = addedPortfolios.filter((prevPortfolio) => prevPortfolio.name !== name);
+        const newPortfolioIds = addedPortfoliosIds.filter(id => id !== name);
         setAddedPortfolios(newPortfolios);
         setAddedPortfoliosIds(newPortfolioIds);
+
+        // const newPortfolios = addedPortfolios.filter((p) => p.id !== portfolio.id);
+        // const newPortfolioIds = addedPortfoliosIds.filter((id) => id !== portfolio.id);
+        // setAddedPortfolios(newPortfolios);
+        // setAddedPortfoliosIds(newPortfolioIds);
 
     }
 
@@ -91,7 +104,7 @@ const BrowsePortfolioModal = ({
 
                 {/* Table is there */}
                 <PortfolioTable
-                    addPortfolioClickHandler={addPortfolioClickHandler}
+                    addPortfolioHandler={addPortfolioHandler}
                     rows={rows}
                     removePortfolioClickHandler={removePortfolioClickHandler}
                     addedPortfolios={addedPortfolios}
